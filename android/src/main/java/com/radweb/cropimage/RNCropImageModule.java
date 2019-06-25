@@ -54,14 +54,14 @@ public class RNCropImageModule extends ReactContextBaseJavaModule {
 			cropped.compress(Bitmap.CompressFormat.JPEG, 100, out);
 			promise.resolve(dest.getAbsolutePath());
 		} catch (Exception e) {
-				promise.reject("Failed to save", "Failed to save to file", null);
+				promise.reject("Failed to save", "Failed to save to file");
 		} finally {
 			try {
 				out.close();
 			} catch (IOException e) {
-				promise.reject("Failed to save", "Failed to close saved file stream", null);
+				promise.reject("Failed to save", "Failed to close saved file stream");
 			} catch (NullPointerException e) {
-				promise.reject("Failed to save", "Failed to close saved file stream", null);
+				promise.reject("Failed to save", "Failed to close saved file stream");
 			}
 		}
 	}
