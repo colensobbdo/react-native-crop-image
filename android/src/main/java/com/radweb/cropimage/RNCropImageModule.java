@@ -67,8 +67,8 @@ public class RNCropImageModule extends ReactContextBaseJavaModule {
 	}
 
 	private File getOutputPath() {
-		File root = Environment.getDownloadCacheDirectory();
+		File root = this.reactContext.getCacheDir();
 		String fileName = String.format("IMG_%s.jpg", new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
-		return new File(String.format("%s%s%s", root.getPath(), File.separator, fileName));
+		return new File(String.format("%s%s%s", root.getAbsolutePath(), File.separator, fileName));
 	}
 }
