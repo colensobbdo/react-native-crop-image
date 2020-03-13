@@ -47,14 +47,14 @@ public class RNCropImageModule extends ReactContextBaseJavaModule {
 		);
 
 		FileOutputStream out = null;
-		File dest = getOutputPath();
+		File dest = getOutputPath(path);
 
 		try {
 			out = new FileOutputStream(dest);
 			cropped.compress(Bitmap.CompressFormat.JPEG, 100, out);
 			promise.resolve(dest.getAbsolutePath());
 		} catch (Exception e) {
-				promise.reject("Failed to save", "Failed to save to file");
+				promise.reject("Failed to save", "Failed to save to file to " + dest + " due to " + e);
 		} finally {
 			try {
 				out.close();
@@ -66,9 +66,10 @@ public class RNCropImageModule extends ReactContextBaseJavaModule {
 		}
 	}
 
-	private File getOutputPath() {
-		File root = this.reactContext.getCacheDir();
+	private File getOutputPath(String path) {
+		// File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File root = new File(path).getParentFile();
 		String fileName = String.format("IMG_%s.jpg", new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
-		return new File(String.format("%s%s%s", root.getAbsolutePath(), File.separator, fileName));
+		return new File(String.format("%s%s%s", root.getPath(), File.separator, fileName));
 	}
 }
